@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        nav {
+            background-color: #0073e6;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb {
+            margin: 20px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            border-color: #0073e6;
+        }
+
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        button[type="submit"], .button {
+            background-color: #0073e6;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover, .button:hover {
+            background-color: #005bb5;
+        }
+
+        footer {
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Menú responsivo */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                color: #fff;
+            }
+
+            nav a {
+                display: none;
+            }
+
+            .menu {
+                display: none;
+                width: 100%;
+                text-align: center;
+                background-color: #0073e6;
+            }
+
+            .menu.active {
+                display: block;
+            }
+
+            nav a {
+                display: block;
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido al Dashboard del Administrador</h1>
+    </header>
+
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <div class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="login.html">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="index.html">Inicio</a> > <a href="dashboard-admin.html">Dashboard Admin</a>
+    </div>
+
+    <div class="container">
+        <h2>Agregar Producto</h2>
+        <button class="button" onclick="toggleForm()">Mostrar Formulario</button>
+
+        <form id="addProductForm" class="hidden">
+            <label for="productName">Nombre del Producto</label>
+            <input type="text" id="productName" name="productName" required>
+
+            <label for="productDescription">Descripción del Producto</label>
+            <textarea id="productDescription" name="productDescription" required></textarea>
+
+            <label for="productPrice">Precio del Producto</label>
+            <input type="number" id="productPrice" name="productPrice" min="0" required>
+
+            <label for="productImage">URL de la Imagen del Producto</label>
+            <input type="text" id="productImage" name="productImage" required>
+
+            <button type="submit" class="button">Agregar Producto</button>
+        </form>
+
+        <h2>Búsqueda</h2>
+        <input type="text" id="searchInput" placeholder="Buscar productos...">
+        <button class="button" onclick="search()">Buscar</button>
+
+        <div id="searchResult"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Marketplace de Fiestas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para el menú responsivo
+        function toggleMenu() {
+            const menu = document.querySelector('.menu');
+            menu.classList.toggle('active');
+        }
+
+        // Función para mostrar/ocultar el formulario de agregar producto
+        function toggleForm() {
+            const form = document.getElementById('addProductForm');
+            form.classList.toggle('hidden');
+        }
+
+        // Manejo del formulario de agregar producto
+        const addProductForm = document.getElementById('addProductForm');
+        addProductForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const productDescription = document.getElementById('productDescription').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const productImage = document.getElementById('productImage').value;
+
+            if (productName && productDescription && productPrice && productImage) {
+                alert('Producto agregado correctamente.');
+                addProductForm.reset(); // Limpiar el formulario
+                toggleForm(); // Ocultar el formulario después de agregar
+            } else {
+                alert('Por favor, complete todos los campos.');
+            }
+        });
+
+        // Función de búsqueda (simulada)
+        function search() {
+            const searchInput = document.getElementById('searchInput').value;
+            const searchResult = document.getElementById('searchResult');
+
+            if (searchInput) {
+                searchResult.innerHTML = `<p>Resultado de búsqueda para: <strong>${searchInput}</strong></p>`;
+            } else {
+                searchResult.innerHTML = '<p>Por favor ingrese un término de búsqueda.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>

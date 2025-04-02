@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Usuario</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        nav {
+            background-color: #0073e6;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb {
+            margin: 20px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+            border-color: #0073e6;
+        }
+
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        button[type="submit"], .button {
+            background-color: #0073e6;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover, .button:hover {
+            background-color: #005bb5;
+        }
+
+        footer {
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f2f2f2;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-results {
+            margin-top: 20px;
+        }
+
+        .no-results {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Menú responsivo */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                color: #fff;
+            }
+
+            nav a {
+                display: none;
+            }
+
+            .menu {
+                display: none;
+                width: 100%;
+                text-align: center;
+                background-color: #0073e6;
+            }
+
+            .menu.active {
+                display: block;
+            }
+
+            nav a {
+                display: block;
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido al Dashboard del Usuario</h1>
+    </header>
+
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <div class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="dashboard-usuario.html">Dashboard Usuario</a>
+            <a href="login.html">Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="index.html">Inicio</a> > <a href="dashboard-usuario.html">Dashboard Usuario</a>
+    </div>
+
+    <div class="container">
+        <h2>Productos Disponibles</h2>
+        <div id="product-list">
+            <!-- Productos definidos en el código -->
+            <div class="product">
+                <h4>Producto 1</h4>
+                <p>Descripción del producto 1</p>
+                <p>Precio: $100</p>
+            </div>
+            <div class="product">
+                <h4>Producto 2</h4>
+                <p>Descripción del producto 2</p>
+                <p>Precio: $200</p>
+            </div>
+            <div class="product">
+                <h4>Producto 3</h4>
+                <p>Descripción del producto 3</p>
+                <p>Precio: $150</p>
+            </div>
+            <div class="product">
+                <h4>Producto 4</h4>
+                <p>una caja de bebidas</p>
+                <p>Precio: $350</p>
+            </div>
+        </div>
+
+        <h2>Búsqueda de Productos</h2>
+        <input type="text" id="searchInput" placeholder="Buscar productos..." />
+        <button onclick="search()">Buscar</button>
+
+        <div id="searchResults" class="search-results"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Marketplace de Fiestas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para el menú responsivo
+        function toggleMenu() {
+            const menu = document.querySelector('.menu');
+            menu.classList.toggle('active');
+        }
+
+        // Función de búsqueda
+        function search() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '';
+
+            let found = false;
+
+            products.forEach(product => {
+                const productName = product.querySelector('h4').textContent.toLowerCase();
+                const productDescription = product.querySelector('p').textContent.toLowerCase();
+
+                if (productName.includes(searchInput) || productDescription.includes(searchInput)) {
+                    resultsDiv.innerHTML += `<div class="product">${product.innerHTML}</div>`;
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                resultsDiv.innerHTML = '<p class="no-results">No se encontraron resultados.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>
